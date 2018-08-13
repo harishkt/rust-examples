@@ -1,14 +1,7 @@
-
-// ab + 1000c = 500000
 pub fn find() -> Option<u32> {
-    for a in 1..1001 {
-        for b in 1..1001 {
-            for c in 1..1001 {
-                if (a+b+c == 1000) && (a*a + b*b == c*c)  {
-                    return Some(a*b*c);
-                }
-            }
-        }
-    }
-    None
+    (1..999)
+        .flat_map(|a| (1..(999 - a)).map(move |b| (a, b, 1000 - a - b)))
+        .filter(|(a, b, c)| a * a + b * b == c * c)
+        .map(|(a, b, c)| a * b * c)
+        .nth(0)
 }
